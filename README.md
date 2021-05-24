@@ -35,4 +35,5 @@ public async Task<ActionResult<string>> TestCancellationAsync()
 ```
 If i were to call the api and cancel the call, the Delay will stop immediately throwing an exception.
 
-If you use entity framework core for exemple you can use cancellation token on database call(ToList(cancellationTokenBase))
+If you use entity framework core for exemple you can use cancellation token on database call (ToList(cancellationTokenBase)).
+It could be a great improvement on search api which are sometime called before the previous is finished.
