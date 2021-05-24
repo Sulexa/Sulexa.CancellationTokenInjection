@@ -1,1 +1,1 @@
-# NetCore.CancellationTokenInjection
+# NetCore.CancellationTokenInjection [![CI](https://github.com/Sulexa/Sulexa.CancellationTokenInjection/actions/workflows/CICD.yml/badge.svg?branch=main)](https://github.com/Sulexa/Sulexa.CancellationTokenInjection/actions/workflows/CICD.yml)
