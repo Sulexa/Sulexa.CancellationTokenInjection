@@ -1,0 +1,35 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build_and_pack:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Restore dependencies
+      run: dotnet restore Sulexa.CancellationTokenInjection
+    - name: Build
+      run: dotnet build Sulexa.CancellationTokenInjection --no-restore  --configuration Release
+    - name: Pack
+      run: dotnet pack Sulexa.CancellationTokenInjection --no-build --no-restore  --configuration Release --output nupkgs
+    - name: Push
+      run: dotnet nuget push nupkgs/"$(find nupkgs -name *.npkg)" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
