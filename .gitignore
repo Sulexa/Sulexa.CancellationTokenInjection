@@ -35,3 +35,11 @@ msbuild.wrn
 
 # Visual Studio 2015
 .vs/
+
+*.ncrunch*
+*.ncrunch*.user
+_NCrunch_*
+_NCrunch_*
+*.crunch.xml
+*.crunch.xml
+nCrunchTemp_*

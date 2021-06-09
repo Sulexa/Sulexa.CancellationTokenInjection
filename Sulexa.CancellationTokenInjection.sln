@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31313.79
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sulexa.CancellationTokenInjection", "Sulexa.CancellationTokenInjection\Sulexa.CancellationTokenInjection.csproj", "{229739D4-FDDA-486F-AD12-52C434CC247F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sulexa.CancellationTokenInjection", "Sulexa.CancellationTokenInjection\Sulexa.CancellationTokenInjection.csproj", "{229739D4-FDDA-486F-AD12-52C434CC247F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sulexa.CancellationTokenInjection.TestApp", "Sulexa.CancellationTokenInjection.TestApp\Sulexa.CancellationTokenInjection.TestApp.csproj", "{47D84A05-8528-4D1A-B376-AB8CE231CB80}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sulexa.CancellationTokenInjection.TestApp", "Sulexa.CancellationTokenInjection.TestApp\Sulexa.CancellationTokenInjection.TestApp.csproj", "{47D84A05-8528-4D1A-B376-AB8CE231CB80}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sulexa.CancellationTokenInjection.Test", "Sulexa.CancellationTokenInjection.Test\Sulexa.CancellationTokenInjection.Test.csproj", "{F27613C2-85A1-43DC-9F59-B839BFA50D93}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{47D84A05-8528-4D1A-B376-AB8CE231CB80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47D84A05-8528-4D1A-B376-AB8CE231CB80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47D84A05-8528-4D1A-B376-AB8CE231CB80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F27613C2-85A1-43DC-9F59-B839BFA50D93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F27613C2-85A1-43DC-9F59-B839BFA50D93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F27613C2-85A1-43DC-9F59-B839BFA50D93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F27613C2-85A1-43DC-9F59-B839BFA50D93}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
