@@ -3,6 +3,27 @@
 A small library to handle injection of cancellation token.
 Cancellation token are a way to stop asynchronous call.
 
+## Usage
+
+In startup add services.AddHttpContextCancellationTokenInjection(); in the ConfigureServices method:
+
+```csharp
+// This method gets called by the runtime. Use this method to add services to the container.
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddHttpContextCancellationTokenInjection();
+}
+```
+Then you can inject CancellationTokenBase in your classes:
+```csharp
+private readonly CancellationTokenBase _cancellationTokenBase;
+
+public MyClass(CancellationTokenBase cancellationTokenBase)
+{
+    this._cancellationTokenBase = cancellationTokenBase;
+}
+```
+
 ## Example
 
 In the following case we have an api which wait 10s before returning a result.
@@ -10,8 +31,8 @@ In the following case we have an api which wait 10s before returning a result.
 [HttpGet("TestCancellationAsync")]
 public async Task<ActionResult<string>> TestCancellationAsync()
 {
-  await Task.Delay(10000);
-  return Ok("Finished without cancellation");
+    await Task.Delay(10000);
+    return Ok("Finished without cancellation");
 }
 ```
 If i were to call the api and cancel the call (leave the webpage, cancel the httpRequest...)  
@@ -19,18 +40,18 @@ The server would continue waiting until the end and wait the 10s.
 
 But if i choose to use my cancellation token
 ```csharp
-private readonly CancellationTokenBase cancellationTokenBase;
+private readonly CancellationTokenBase _cancellationTokenBase;
 
 public CancellationTokenTestController(CancellationTokenBase cancellationTokenBase)
 {
-    this.cancellationTokenBase = cancellationTokenBase;
+    this._cancellationTokenBase = cancellationTokenBase;
 }
 
 [HttpGet("TestCancellationAsync")]
 public async Task<ActionResult<string>> TestCancellationAsync()
 {
-  await Task.Delay(10000, cancellationTokenBase);
-  return Ok("Finished without cancellation");
+    await Task.Delay(10000, _cancellationTokenBase);
+    return Ok("Finished without cancellation");
 }
 ```
 If i were to call the api and cancel the call, the Delay will stop immediately throwing an exception.
