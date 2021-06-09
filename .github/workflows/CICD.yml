@@ -29,6 +29,8 @@ jobs:
       run: dotnet restore Sulexa.CancellationTokenInjection
     - name: Build
       run: dotnet build Sulexa.CancellationTokenInjection --no-restore  --configuration Release
+    - name: Test
+      run: dotnet test Sulexa.CancellationTokenInjection.Test
     - name: Pack
       run: dotnet pack Sulexa.CancellationTokenInjection --no-build --no-restore  --configuration Release --output nupkgs
     - name: Push
