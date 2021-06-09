@@ -13,17 +13,17 @@ namespace Sulexa.CancellationTokenInjection.TestApp.Controllers
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        private readonly CancellationTokenBase cancellationTokenBase;
+        private readonly CancellationTokenBase _cancellationTokenBase;
 
         public CancellationTokenTestController(CancellationTokenBase cancellationTokenBase)
         {
-            this.cancellationTokenBase = cancellationTokenBase;
+            this._cancellationTokenBase = cancellationTokenBase;
         }
 
         [HttpGet("TestCancellationAsync")]
         public async Task<ActionResult<string>> TestCancellationAsync()
         {
-            await Task.Delay(10000, cancellationTokenBase);
+            await Task.Delay(10000, _cancellationTokenBase);
             return Ok("Finished without cancellation");
         }
     }
