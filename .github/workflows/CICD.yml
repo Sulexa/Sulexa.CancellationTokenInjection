@@ -25,16 +25,16 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-    - name: Codecov
-      uses: codecov/codecov-action@v1
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
     - name: Restore dependencies
       run: dotnet restore Sulexa.CancellationTokenInjection
     - name: Build
       run: dotnet build Sulexa.CancellationTokenInjection --no-restore  --configuration Release
     - name: Test
       run: dotnet test Sulexa.CancellationTokenInjection.Test --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+    - name: Codecov
+      uses: codecov/codecov-action@v1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
     - name: Pack
       run: dotnet pack Sulexa.CancellationTokenInjection --no-build --no-restore  --configuration Release --output nupkgs
     - name: Push
