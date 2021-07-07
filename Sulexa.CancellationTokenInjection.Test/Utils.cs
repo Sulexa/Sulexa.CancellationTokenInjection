@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Sulexa.CancellationTokenInjection.Extensions;
+using Sulexa.CancellationTokenInjection.Models;
 
 namespace Sulexa.CancellationTokenInjection.Test
 {
@@ -10,6 +11,11 @@ namespace Sulexa.CancellationTokenInjection.Test
             var services = new ServiceCollection();
             services.AddHttpContextCancellationTokenInjection();
             return services.BuildServiceProvider();
+        }
+
+        public static HttpContextCancellationToken GetHttpContextCancellationToken(ServiceProvider provider)
+        {
+            return provider.GetRequiredService<HttpContextCancellationToken>();
         }
     }
 }

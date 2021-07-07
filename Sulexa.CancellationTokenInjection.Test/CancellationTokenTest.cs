@@ -15,15 +15,16 @@ namespace Sulexa.CancellationTokenInjection.Test
         public async Task CancellationToken_Not_Cancel_Success()
         {
             var provider = Utils.CreateServiceProviderForHttpContextCancellationToken();
-
-            var httpContextAccessor = provider.GetRequiredService<IHttpContextAccessor>();
-            var cancelationTokenBase = provider.GetRequiredService<CancellationTokenBase>();
+            var httpContextAccessor = GetHttpContextAccessor(provider);
+            var httpContextCancellationToken = Utils.GetHttpContextCancellationToken(provider);
             var cancellationTokenSource = new CancellationTokenSource();
 
-            httpContextAccessor.HttpContext = new DefaultHttpContext();
-            httpContextAccessor.HttpContext.RequestAborted = cancellationTokenSource.Token;
+            httpContextAccessor.HttpContext = new DefaultHttpContext
+            {
+                RequestAborted = cancellationTokenSource.Token
+            };
 
-            await Task.Delay(2000, cancelationTokenBase);
+            await Task.Delay(2000, httpContextCancellationToken);
         }
 
         [TestMethod]
@@ -31,12 +32,14 @@ namespace Sulexa.CancellationTokenInjection.Test
         {
             var provider = Utils.CreateServiceProviderForHttpContextCancellationToken();
 
-            var httpContextAccessor = provider.GetRequiredService<IHttpContextAccessor>();
-            var cancelationTokenBase = provider.GetRequiredService<CancellationTokenBase>();
+            var httpContextAccessor = GetHttpContextAccessor(provider);
+            var httpContextCancellationToken = Utils.GetHttpContextCancellationToken(provider);
             var cancellationTokenSource = new CancellationTokenSource();
 
-            httpContextAccessor.HttpContext = new DefaultHttpContext();
-            httpContextAccessor.HttpContext.RequestAborted = cancellationTokenSource.Token;
+            httpContextAccessor.HttpContext = new DefaultHttpContext
+            {
+                RequestAborted = cancellationTokenSource.Token
+            };
 
             var task = Task.Factory.StartNew(() =>
             {
@@ -44,7 +47,12 @@ namespace Sulexa.CancellationTokenInjection.Test
                 cancellationTokenSource.Cancel();
             });
 
-            await Assert.ThrowsExceptionAsync<TaskCanceledException>(() => Task.Delay(2000, cancelationTokenBase));
-         }
+            await Assert.ThrowsExceptionAsync<TaskCanceledException>(() => Task.Delay(2000, httpContextCancellationToken));
+        }
+
+        private static IHttpContextAccessor GetHttpContextAccessor(ServiceProvider provider)
+        {
+            return provider.GetRequiredService<IHttpContextAccessor>();
+        }
     }
 }

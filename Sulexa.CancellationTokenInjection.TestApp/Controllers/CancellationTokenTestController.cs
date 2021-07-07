@@ -8,22 +8,17 @@ namespace Sulexa.CancellationTokenInjection.TestApp.Controllers
     [Route("[controller]")]
     public class CancellationTokenTestController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
+        private readonly HttpContextCancellationToken _httpContextCancellationToken;
 
-        private readonly CancellationTokenBase _cancellationTokenBase;
-
-        public CancellationTokenTestController(CancellationTokenBase cancellationTokenBase)
+        public CancellationTokenTestController(HttpContextCancellationToken httpContextCancellationToken)
         {
-            this._cancellationTokenBase = cancellationTokenBase;
+            this._httpContextCancellationToken = httpContextCancellationToken;
         }
 
         [HttpGet("TestCancellationAsync")]
         public async Task<ActionResult<string>> TestCancellationAsync()
         {
-            await Task.Delay(10000, _cancellationTokenBase);
+            await Task.Delay(10000, _httpContextCancellationToken);
             return Ok("Finished without cancellation");
         }
     }
