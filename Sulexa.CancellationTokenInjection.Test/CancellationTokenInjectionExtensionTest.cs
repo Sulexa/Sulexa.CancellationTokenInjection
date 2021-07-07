@@ -24,10 +24,10 @@ namespace Sulexa.CancellationTokenInjection.Test
         {
             var provider = Utils.CreateServiceProviderForHttpContextCancellationToken();
 
-            var cancelationTokenBase = provider.GetRequiredService<CancellationTokenBase>();
+            var httpContextCancellationToken = Utils.GetHttpContextCancellationToken(provider);
 
-            Assert.IsNotNull(cancelationTokenBase);
-            Assert.IsInstanceOfType(cancelationTokenBase, typeof(HttpContextCancellationToken));
+            Assert.IsNotNull(httpContextCancellationToken);
+            Assert.IsInstanceOfType(httpContextCancellationToken, typeof(HttpContextCancellationToken));
         }
     }
 }

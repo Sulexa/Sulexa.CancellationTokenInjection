@@ -5,7 +5,7 @@ Cancellation token are a way to stop asynchronous call.
 
 ## Usage
 
-In startup add services.AddHttpContextCancellationTokenInjection(); in the ConfigureServices method:
+In your startup.cs add services.AddHttpContextCancellationTokenInjection(); in the ConfigureServices method:
 
 ```csharp
 // This method gets called by the runtime. Use this method to add services to the container.
@@ -16,11 +16,11 @@ public void ConfigureServices(IServiceCollection services)
 ```
 Then you can inject CancellationTokenBase in your classes:
 ```csharp
-private readonly CancellationTokenBase _cancellationTokenBase;
+private readonly HttpContextCancellationToken _httpContextCancellationToken; 
 
-public MyClass(CancellationTokenBase cancellationTokenBase)
+public MyClass(HttpContextCancellationToken httpContextCancellationToken)
 {
-    this._cancellationTokenBase = cancellationTokenBase;
+    this._httpContextCancellationToken = httpContextCancellationToken;
 }
 ```
 
@@ -40,17 +40,17 @@ The server would continue waiting until the end and wait the 10s.
 
 But if i choose to use my cancellation token
 ```csharp
-private readonly CancellationTokenBase _cancellationTokenBase;
+private readonly HttpContextCancellationToken _httpContextCancellationToken;
 
-public CancellationTokenTestController(CancellationTokenBase cancellationTokenBase)
+public CancellationTokenTestController(HttpContextCancellationToken httpContextCancellationToken)
 {
-    this._cancellationTokenBase = cancellationTokenBase;
+    this._httpContextCancellationToken = httpContextCancellationToken;
 }
 
 [HttpGet("TestCancellationAsync")]
 public async Task<ActionResult<string>> TestCancellationAsync()
 {
-    await Task.Delay(10000, _cancellationTokenBase);
+    await Task.Delay(10000, _httpContextCancellationToken);
     return Ok("Finished without cancellation");
 }
 ```

@@ -15,7 +15,7 @@ namespace Sulexa.CancellationTokenInjection.Extensions
         public static void AddHttpContextCancellationTokenInjection(this IServiceCollection services)
         {
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped<CancellationTokenBase, HttpContextCancellationToken>();
+            services.AddScoped<HttpContextCancellationToken>();
         }
     }
 }
